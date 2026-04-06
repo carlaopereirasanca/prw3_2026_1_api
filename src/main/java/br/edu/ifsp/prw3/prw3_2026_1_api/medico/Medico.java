@@ -6,18 +6,25 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import java.util.UUID;
+
 
 @Table(name = "medicos")
 @Entity(name = "Medico")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Medico {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @EqualsAndHashCode.Include
+    @Column(nullable = false, unique = true, updatable = false)
+    private final String uuid = UUID.randomUUID().toString();
+
     private String nome;
     private String email;
     private String telefone;
